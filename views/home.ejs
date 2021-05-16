@@ -1,0 +1,124 @@
+<html>
+    <head>
+        
+        <title><%= title %></title>
+
+    <!-- Importing Bootstrap for styling Purposes -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    
+    <!-- Importing Font Awesone Library for Icons -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+    <!-- Setting Font for app -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+
+    <!-- Importing The external stylesheet for styling of home page -->
+    <link rel="stylesheet" href="/css/home.css">
+
+
+    </head>
+    <body>
+        <div>
+            <!-- defining the outer divs -->
+            <div class="main">
+                <h1 class="title line">
+                    TODO App
+                </h1>
+
+                <!-- creating the form for entering the task -->
+
+                <label for="description" class="headings"><b>DESCRIPTION</b></label><br>
+                <form action="/create-task" method="POST" class="form">
+                    <input type="text" name="description" class="desc line" placeholder="What do you need to do?">
+                    <!-- flexbox starting -->
+                    <div class="arrange">
+                    <div style="padding-right: 7px;" class="form-group cat line-right">
+                        <!-- dropdown list -->
+                        <label for="sel1" class="headings">Category</label>
+                        <select class="form-control" id="sel1" name="category">
+                        <option>Choose a category</option>
+                        <option>Personal</option>
+                        <option>Work</option>
+                        <option>School</option>
+                        <option>Cleaning</option>
+                        <option>Other</option>
+                        </select>
+                    </div>
+                    <div class="cat cat1">
+                        <!-- input form for due date -->
+                        <label for="date-label" class="headings">Due Date</label><br>
+                        <input style="border: none;" type="date" id="birthday" name="date" class="cat cat1">
+                    </div>
+                    </div>
+
+                    <div class="line"></div>
+                    <br>
+                
+                    <!-- flexbox starting for buttons -->
+                    <div class="arrange1">
+                    </form>
+                        <button type="submit" class="btn size1 add"><i class="fas fa-plus"></i>Add Task</button>
+                
+                        <button type="submit" class="btn size1 del" form="delete1"><i class="fas fa-trash-alt"></i>Delete Tasks</button>
+    
+                        <!-- form for category wise retrieving -->
+                        
+                </div>
+                <div class="arrange1" style="margin-top: 15px;">
+                    <form action="/retrieve-category" method="POST">
+                        <div class="form-group" style="display: inline-block;">
+                            <!-- dropdown list -->
+                            <label for="sel2" class="headings" style="display: inline;">Search by Category</label>
+                            <select class="form-control" id="sel2" name="retrieveCategory" style="display: inline;">
+                            <option>Choose a category</option>
+                            <option>Personal</option>
+                            <option>Work</option>
+                            <option>School</option>
+                            <option>Cleaning</option>
+                            <option>Other</option>
+                            </select>
+                        </div>
+                        <button style="border: none; background-color: white;" type="submit"><i class="fas fa-search fa-lg"></i></button>
+                    </form>
+                </div>
+                    <div class="line"></div>
+
+                <!-- the delete form -->
+
+                <form id="delete1" action="/delete-todo" method="POST" >
+                    <div class="elements">
+
+                        <!-- ejs code for retrieving the tasks and deleting the selected items -->
+
+                        <% for(let i of task_list){ %>
+                            <div>
+                                <div class="task-list line">
+                                <div class="task-elements">
+                                    <!-- checkbox for selecting the elements to be deleted -->
+                                    <input style="margin-top: 10px !important; margin-left: 20px !important;" type="checkbox" name=task value="<%= i._id %>">
+                                </div>
+                                <!-- printing the tasks in database -->
+                                <div class="task-elements">
+                                    <span><%= i.description %></span>
+                                    <br>
+                                    <span class="date"><i class="far fa-calendar-alt rt-margin"></i><%= new Date().getDate() + '-' + new Date().getMonth() + '-'+ new Date().getFullYear() + ' ' +new Date().getHours() + ':'+ new Date().getMinutes() +':' +new Date().getSeconds()%></span>
+                                </div>
+                                <div style="text-align: center;" class="task-elements cat-tag">
+                                    <span><%= i.category %></span>
+                                </div>
+                                </div>
+                            </div>
+                        <% } %>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+        <!-- External Scripts given with bootstrap Library -->
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        <script src="js/select.js"></script>
+    </body>
+</html>
